@@ -1,0 +1,284 @@
+/* package whatever; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Ideone
+{
+	static class FastReader 
+    { 
+        BufferedReader br; 
+        StringTokenizer st; 
+  
+        public FastReader() 
+        { 
+            br = new BufferedReader(new
+                     InputStreamReader(System.in)); 
+        } 
+  
+        String next() 
+        { 
+            while (st == null || !st.hasMoreElements()) 
+            { 
+                try
+                { 
+                    st = new StringTokenizer(br.readLine()); 
+                } 
+                catch (IOException  e) 
+                { 
+                    e.printStackTrace(); 
+                } 
+            } 
+            return st.nextToken(); 
+        } 
+  
+        int nextInt() 
+        { 
+            return Integer.parseInt(next()); 
+        } 
+  
+        long nextLong() 
+        { 
+            return Long.parseLong(next()); 
+        } 
+  
+        double nextDouble() 
+        { 
+            return Double.parseDouble(next()); 
+        } 
+  
+        String nextLine() 
+        { 
+            String str = ""; 
+            try
+            { 
+                str = br.readLine(); 
+            } 
+            catch (IOException e) 
+            { 
+                e.printStackTrace(); 
+            } 
+            return str; 
+        } 
+    } 
+    static class pair{
+    	long a;
+    	long b;
+    	pair(long e,long f)
+    	{
+    		a=e;
+    		b=f;
+    	}
+    } 
+    static long binarycount(long num)
+    {
+    	long tot=0;
+    	while(num>0)
+    	{
+    		tot=tot+num%10;
+    		num=num/10;
+    	}
+    	return tot;
+    }
+    static int solve(HashMap<Long,Integer>m)
+    {
+    	
+    	for(long num:m.keySet())
+    	{
+    		if(((m.get(num))&1)==1)
+    		{
+    			return 1;
+    		}
+    	}
+    	return 2;
+    }
+    static class MergeSort { 
+    void merge(long arr[], int l, int m, int r) 
+    { 
+        int n1 = m - l + 1; 
+        int n2 = r - m; 
+       long L[] = new long[n1]; 
+        long R[] = new long[n2]; 
+        for (int i = 0; i < n1; ++i) 
+            L[i] = arr[l + i]; 
+        for (int j = 0; j < n2; ++j) 
+            R[j] = arr[m + 1 + j]; 
+        int i = 0, j = 0; 
+        int k = l; 
+        while (i < n1 && j < n2) { 
+            if (L[i] <= R[j]) { 
+                arr[k] = L[i]; 
+                i++; 
+            } 
+            else { 
+                arr[k] = R[j]; 
+                j++; 
+            } 
+            k++; 
+        } 
+        while (i < n1) { 
+            arr[k] = L[i]; 
+            i++; 
+            k++; 
+        } 
+        while (j < n2) { 
+            arr[k] = R[j]; 
+            j++; 
+            k++; 
+        } 
+    }
+    void sort(long arr[], int l, int r) 
+    { 
+        if (l < r) { 
+            int m = (l + r) / 2; 
+            sort(arr, l, m); 
+            sort(arr, m + 1, r); 
+            merge(arr, l, m, r); 
+        } 
+    } 
+    }
+     static long logtwo(long x)
+{
+	return (long) (Math.log(x) / Math.log(2));
+}
+    static long getvalue(long bdha,long chota, int flag)
+    {
+    	if(flag==1)
+    	{
+    	//	System.out.println(Math.ceil(logtwo(bdha)-logtwo(chota)));
+    		long d=((long)(Math.ceil(logtwo(bdha)-logtwo(chota)))+2);
+    		
+    		long greater=(long)(Math.pow(2,d-1));
+    		d=((chota*greater)>=bdha)?d-1:d;
+    		if(d<1)
+    		{
+    			return 1;
+    		}
+    		return d;
+    		
+    	}
+    	else if(flag==2)
+    	{ 
+    			//System.out.println(Math.ceil(logtwo(bdha)-logtwo(chota)));
+    		long d=((long)(Math.ceil(logtwo(bdha)-logtwo(chota)))+2);
+    		
+    	long greater=(long)(Math.pow(2,d-2));
+    		d=((chota*greater)>=bdha)?d-1:d;
+    	//	System.out.print(d+"  ");
+    			if(d<1)
+    		{
+    			return 1;
+    		}
+    		return d;
+    	}
+    	else
+    	{
+    			long d=((long)(Math.ceil(logtwo(bdha)-logtwo(chota)))+1);
+    		//System.out.print(d+" ");
+    	long greater=(long)(Math.pow(2,d-1));
+    		d=((chota*greater)>=bdha)?d-1:d;
+    	//	System.out.print(d+"  ");
+    			if(d<1)
+    		{
+    			return 1;
+    		}
+    		return d;
+    	}
+    }
+    
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		FastReader scn=new FastReader();
+		long t=scn.nextLong();
+		StringBuilder sb=new StringBuilder();
+		for(long h =1;h<=t;h++)
+		{
+			int n=scn.nextInt();
+			long x=scn.nextLong();
+			
+		long []arr=new long[n];
+			
+			int i=0;
+			
+			while(i<n)
+			{
+				arr[i]=scn.nextLong();
+				i++;
+			}
+			
+		MergeSort m=new MergeSort();
+			m.sort(arr,0,n-1);
+				 long jistk=arr[n-1];
+			 long countmax[]=new long[n];
+			 int w=0;
+			 while(w<n-1)
+			 {
+			 	long val=getvalue(jistk,arr[w],3);
+			 	countmax[w]=val;
+			 	w++;
+			 }
+			
+			long check[]=new long[n];
+			 
+			 int j=0;
+			 while(j<n)
+			 {
+			 	long val=getvalue(arr[j],x,2);
+			 	check[j]=val;
+			 	j++;
+			 }
+			 //for(int iw=0;iw<countmax.length;iw++)
+			 //{
+			 //	System.out.print(countmax[iw]+" ");
+			 //}
+			 ArrayList<Long>trial=new ArrayList<>();
+			 
+			 int tt=n-1;
+			 
+			 while(tt>=0)
+			 {
+			 	
+			 	if(tt==n-1)
+			 	{
+			 		tt--;
+			 		continue;
+			 	}
+			 	long val=getvalue(arr[tt+1],arr[tt],3);
+			 //	System.out.print(val+" " );
+			 	long ans=countmax[tt+1]+val;
+			 	
+			 	countmax[tt]=ans;
+			 	
+			 	tt--;
+			 }
+			 //for(int y=0;y<countmax.length;y++)
+			 //{
+			 //	System.out.print(countmax[y]+" ");
+			 //}
+			 
+			 
+			 long mincost=Long.MAX_VALUE;
+			 
+			 int tobu=0;
+			 
+			 int counter=0;
+			 
+			 while(tobu<n)
+			 {
+			 	
+			 	long val=countmax[tobu]+check[tobu]+counter;
+			 	
+			 	if(val<mincost)mincost=val;
+			 	tobu++;
+			 	counter++;
+			 }
+			 sb.append(mincost);
+	
+		     sb.append("\n");
+		}
+		System.out.print(sb);
+	}
+}
