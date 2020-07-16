@@ -1,0 +1,156 @@
+/* package whatever; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Ideone
+{
+	static class FastReader 
+    { 
+        BufferedReader br; 
+        StringTokenizer st; 
+  
+        public FastReader() 
+        { 
+            br = new BufferedReader(new
+                     InputStreamReader(System.in)); 
+        } 
+  
+        String next() 
+        { 
+            while (st == null || !st.hasMoreElements()) 
+            { 
+                try
+                { 
+                    st = new StringTokenizer(br.readLine()); 
+                } 
+                catch (IOException  e) 
+                { 
+                    e.printStackTrace(); 
+                } 
+            } 
+            return st.nextToken(); 
+        } 
+  
+        int nextInt() 
+        { 
+            return Integer.parseInt(next()); 
+        } 
+  
+        long nextLong() 
+        { 
+            return Long.parseLong(next()); 
+        } 
+  
+        double nextDouble() 
+        { 
+            return Double.parseDouble(next()); 
+        } 
+  
+        String nextLine() 
+        { 
+            String str = ""; 
+            try
+            { 
+                str = br.readLine(); 
+            } 
+            catch (IOException e) 
+            { 
+                e.printStackTrace(); 
+            } 
+            return str; 
+        } 
+    } 
+    static class pair{
+    	long a;
+    	long b;
+    	pair(long e,long f)
+    	{
+    		a=e;
+    		b=f;
+    	}
+    } 
+    static long binarycount(long num)
+    {
+    	long tot=0;
+    	while(num>0)
+    	{
+    		tot=tot+num%10;
+    		num=num/10;
+    	}
+    	return tot;
+    }
+    static StringBuilder solve(int king)
+    {
+    	char ch[][]=new char[8][8];
+    	for(int i=0;i<8;i++)
+    	{
+    		for(int j=0;j<8;j++)
+    		{
+    			ch[i][j]='X';
+    		}
+    	}
+    	ch[0][0]='O';
+    	
+    	int i=0;
+    	while(i<8)
+    	{
+    		int j=0;
+    		
+    		while(j<8)
+    		{
+    			if(i==j&&i==0)
+    			{
+    				j++;
+    				continue;
+    			}
+    			if(king>0)
+    			{
+    			ch[j][i]='.';
+    			king--;
+    			}
+    			j++;
+    		}
+    		i++;
+    	}
+    	StringBuilder d=new StringBuilder();
+    	int g=0;
+    	while(g<8)
+    	{
+    		int f=0;
+    		while(f<8)
+    		{
+    			if(g==f&&f==0)
+    			{
+    				
+    			}
+    			else
+    			d.append(ch[g][f]);
+    			f++;
+    		}d.append("\n");
+    		g++;
+    	}
+    	return d;
+    }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		FastReader scn=new FastReader();
+		long t=scn.nextLong();
+		StringBuilder sb=new StringBuilder();
+		for(long i =1;i<=t;i++)
+		{
+		     int king=scn.nextInt();
+		     sb.append("O");
+		     
+		     //first value is appended
+		     //so now  we have to set king -1 value in the remaining area
+		     StringBuilder e=solve(king-1);
+		     sb.append(e);
+			 sb.append("\n");
+		}
+		System.out.print(sb);
+	}
+}
