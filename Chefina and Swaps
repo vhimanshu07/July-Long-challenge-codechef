@@ -1,0 +1,280 @@
+
+// this solution took nearly 3 days of mine ...i had to  think a lot for this question
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* package whatever; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Ideone
+{
+	static class FastReader 
+    { 
+        BufferedReader br; 
+        StringTokenizer st; 
+  
+        public FastReader() 
+        { 
+            br = new BufferedReader(new
+                     InputStreamReader(System.in)); 
+        } 
+  
+        String next() 
+        { 
+            while (st == null || !st.hasMoreElements()) 
+            { 
+                try
+                { 
+                    st = new StringTokenizer(br.readLine()); 
+                } 
+                catch (IOException  e) 
+                { 
+                    e.printStackTrace(); 
+                } 
+            } 
+            return st.nextToken(); 
+        } 
+  
+        int nextInt() 
+        { 
+            return Integer.parseInt(next()); 
+        } 
+  
+        long nextLong() 
+        { 
+            return Long.parseLong(next()); 
+        } 
+  
+        double nextDouble() 
+        { 
+            return Double.parseDouble(next()); 
+        } 
+  
+        String nextLine() 
+        { 
+            String str = ""; 
+            try
+            { 
+                str = br.readLine(); 
+            } 
+            catch (IOException e) 
+            { 
+                e.printStackTrace(); 
+            } 
+            return str; 
+        } 
+    } 
+    static class pair{
+    	long a;
+    	long b;
+    	pair(long e,long f)
+    	{
+    		a=e;
+    		b=f;
+    	}
+    } 
+    static long binarycount(long num)
+    {
+    	long tot=0;
+    	while(num>0)
+    	{
+    		tot=tot+num%10;
+    		num=num/10;
+    	}
+    	return tot;
+    }
+    static int solve(HashMap<Long,Integer>m)
+    {
+    	
+    	for(long num:m.keySet())
+    	{
+    		if(((m.get(num))&1)==1)
+    		{
+    			return 1;
+    		}
+    	}
+    	return 2;
+    }
+    
+    
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		FastReader scn=new FastReader();
+		long t=scn.nextLong();
+		StringBuilder sb=new StringBuilder();
+		for(long h =1;h<=t;h++)
+		{
+		     HashMap<Long,Integer>map=new HashMap<>();
+		     int n=scn.nextInt();
+		     
+		     ArrayList<Long>a=new ArrayList<>();
+		     ArrayList<Long>b=new ArrayList<>();
+		     int f=1;while(f<=n){a.add(scn.nextLong());f++;}
+    	     int j=1;while(j<=n){b.add(scn.nextLong());j++;}
+    	     long minelme=Long.MAX_VALUE;
+    	     HashMap<Long,Integer>bmap=new HashMap<>();
+    	     for(int gh=0;gh<n;gh++)
+    	     {
+    	     	int i=gh;
+    	     	if(minelme>a.get(i))
+    	     	{
+    	     		minelme=a.get(i);
+    	     	}
+    	     	if(map.containsKey(a.get(i)))
+    	     	{
+    	     		map.put(a.get(i),map.get(a.get(i))+1);
+    	     	}
+    	     	else if(!map.containsKey(a.get(i)))
+    	     	{
+    	     		map.put(a.get(i),1);
+    	     	}
+    	     
+    	     }
+    	     for(int lo=0;lo<n;lo++)
+    	     {
+    	     	int i=lo;
+    	     	if(minelme>b.get(i))
+    	     	{
+    	     		minelme=b.get(i);
+    	     	}
+    	     	if(map.containsKey(b.get(i)))
+    	     	{
+    	     		map.put(b.get(i),map.get(b.get(i))+1);
+    	     		
+    	     	}
+    	     	else if(!map.containsKey(b.get(i)))
+    	     	{
+    	     		map.put(b.get(i),1);
+    	     		
+    	     	}
+    	     	if(bmap.containsKey(b.get(i)))
+    	     	{
+    	     		bmap.put(b.get(i),bmap.get(b.get(i))+1);
+    	     	}
+    	     	else if(!bmap.containsKey(b.get(i)))
+    	     	{
+    	     		bmap.put(b.get(i),1);
+    	     	}
+    	     }
+		     int check=solve(map);
+		     if(check==1)
+		     {
+		     	sb.append("-1");
+		     }
+		     else
+		     {
+		     	int cou=0;
+		     	for(long num:map.keySet())
+		     	{
+		     		int cout=0;
+		     		while(cout<(map.get(num))/2)
+		     		{
+		     			cout++;
+		     			cou++;
+		     		}
+		     	}
+		     	long fin[]=new long[cou];
+		     	int joke=0;
+		     	for(long num:map.keySet())
+		     	{
+		     		int cout=0;
+		     		while(cout<(map.get(num))/2)
+		     		{
+		     			cout++;
+		     			fin[joke++]=num;
+		     		}
+		     	}
+		     
+		     	HashMap<Long,Integer>finalmap=new HashMap<>();
+		     	for(int we=0;we<fin.length;we++)
+		     	{
+		     		long num=fin[we];
+		     		if(finalmap.containsKey(num))
+		     		{
+		     			finalmap.put(num,finalmap.get(num)+1);
+		     		}
+		     		else
+		     		{
+		     			finalmap.put(num,1);
+		     		}
+		     	}
+		     	ArrayList<Long>jungle=new ArrayList<>();
+		     	for(Long num:finalmap.keySet())
+		     	{
+		     		if(!bmap.containsKey(num))
+		     		{
+		     			int wq=1;
+		     			int  tot=finalmap.get(num);
+		     			
+		     			
+		     			while(wq<=tot)
+		     			{
+		     				jungle.add(num);
+		     				wq++;
+		     			}
+		     			
+		     		}
+		     		else 
+		     		{
+		     			int cb=bmap.get(num);
+		     			int  tot=finalmap.get(num);
+		     			
+		     			int chlega=cb-tot;
+		     			if(chlega<0)
+		     			{
+		     				chlega=Math.abs(chlega);
+		     			}
+		     			int cg=1;
+		     			while(cg<=chlega)
+		     			{
+		     				jungle.add(num);
+		     				cg++;
+		     			}
+		    
+		     		}
+		     	}
+		     	Collections.sort(jungle,Collections.reverseOrder());
+		     	long answer=0;
+		     	int z=jungle.size()-1;
+		     	// System.out.println(jungle.size());
+		     	// for(int i=z;i>=0;i--)
+		     	// {
+		     	// 	System.out.print(jungle.get(i)+" ");
+		     	// }
+		     	// System.out.println();
+		     	int half=jungle.size()/2;
+		     	minelme=2*minelme;
+		     //	System.out.println(minelme);
+		     	for(int i=z;i>=half;i--)
+		     	{
+		     		long num=jungle.get(i);
+		     		long greater=((num>minelme)?minelme:num);
+		     		//System.out.println(greater);
+		     		answer=answer+greater;
+		     	}
+		     	
+		     sb.append(answer);
+		     }
+		     sb.append("\n");
+		}
+		System.out.print(sb);
+	}
+}
