@@ -1,0 +1,357 @@
+/* package whatever; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Ideone
+{
+	static class FastReader 
+    { 
+        BufferedReader br; 
+        StringTokenizer st; 
+  
+        public FastReader() 
+        { 
+            br = new BufferedReader(new
+                     InputStreamReader(System.in)); 
+        } 
+  
+        String next() 
+        { 
+            while (st == null || !st.hasMoreElements()) 
+            { 
+                try
+                { 
+                    st = new StringTokenizer(br.readLine()); 
+                } 
+                catch (IOException  e) 
+                { 
+                    e.printStackTrace(); 
+                } 
+            } 
+            return st.nextToken(); 
+        } 
+  
+        int nextInt() 
+        { 
+            return Integer.parseInt(next()); 
+        } 
+  
+        long nextLong() 
+        { 
+            return Long.parseLong(next()); 
+        } 
+  
+        double nextDouble() 
+        { 
+            return Double.parseDouble(next()); 
+        } 
+  
+        String nextLine() 
+        { 
+            String str = ""; 
+            try
+            { 
+                str = br.readLine(); 
+            } 
+            catch (IOException e) 
+            { 
+                e.printStackTrace(); 
+            } 
+            return str; 
+        } 
+    } 
+    static class pair{
+    	long a;
+    	long b;
+    	pair(long e,long f)
+    	{
+    		a=e;
+    		b=f;
+    	}
+    } 
+    static long binarycount(long num)
+    {
+    	long tot=0;
+    	while(num>0)
+    	{
+    		tot=tot+num%10;
+    		num=num/10;
+    	}
+    	return tot;
+    }
+    static int solve(HashMap<Long,Integer>m)
+    {
+    	
+    	for(long num:m.keySet())
+    	{
+    		if(((m.get(num))&1)==1)
+    		{
+    			return 1;
+    		}
+    	}
+    	return 2;
+    }
+    static class MergeSort { 
+    void merge(long arr[], int l, int m, int r) 
+    { 
+        int n1 = m - l + 1; 
+        int n2 = r - m; 
+       long L[] = new long[n1]; 
+        long R[] = new long[n2]; 
+        for (int i = 0; i < n1; ++i) 
+            L[i] = arr[l + i]; 
+        for (int j = 0; j < n2; ++j) 
+            R[j] = arr[m + 1 + j]; 
+        int i = 0, j = 0; 
+        int k = l; 
+        while (i < n1 && j < n2) { 
+            if (L[i] <= R[j]) { 
+                arr[k] = L[i]; 
+                i++; 
+            } 
+            else { 
+                arr[k] = R[j]; 
+                j++; 
+            } 
+            k++; 
+        } 
+        while (i < n1) { 
+            arr[k] = L[i]; 
+            i++; 
+            k++; 
+        } 
+        while (j < n2) { 
+            arr[k] = R[j]; 
+            j++; 
+            k++; 
+        } 
+    }
+    void sort(long arr[], int l, int r) 
+    { 
+        if (l < r) { 
+            int m = (l + r) / 2; 
+            sort(arr, l, m); 
+            sort(arr, m + 1, r); 
+            merge(arr, l, m, r); 
+        } 
+    } 
+    }
+     static long logtwo(long x)
+{
+	return (long) (Math.log(x) / Math.log(2));
+}
+    static long getvalue(long bdha,long chota, int flag)
+    {
+    	if(flag==1)
+    	{
+    	//	System.out.println(Math.ceil(logtwo(bdha)-logtwo(chota)));
+    		long d=((long)(Math.ceil(logtwo(bdha)-logtwo(chota)))+2);
+    		
+    		long greater=(long)(Math.pow(2,d-1));
+    		d=((chota*greater)>=bdha)?d-1:d;
+    		if(d<1)
+    		{
+    			return 1;
+    		}
+    		return d;
+    		
+    	}
+    	else if(flag==2)
+    	{ 
+    			//System.out.println(Math.ceil(logtwo(bdha)-logtwo(chota)));
+    		long d=((long)(Math.ceil(logtwo(bdha)-logtwo(chota)))+2);
+    		
+    	long greater=(long)(Math.pow(2,d-2));
+    		d=((chota*greater)>=bdha)?d-1:d;
+    	//	System.out.print(d+"  ");
+    			if(d<1)
+    		{
+    			return 1;
+    		}
+    		return d;
+    	}
+    	else
+    	{
+    			long d=((long)(Math.ceil(logtwo(bdha)-logtwo(chota)))+1);
+    		//System.out.print(d+" ");
+    	long greater=(long)(Math.pow(2,d-1));
+    		d=((chota*greater)>=bdha)?d-1:d;
+    	//	System.out.print(d+"  ");
+    			if(d<1)
+    		{
+    			return 1;
+    		}
+    		return d;
+    	}
+    }
+    
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		FastReader scn=new FastReader();
+	
+		StringBuilder sb=new StringBuilder();
+		int n=scn.nextInt();
+		int q=scn.nextInt();
+		long height[]=new long[n];
+		int i=0;
+		while(i<n)
+		{
+			
+			height[i]=scn.nextLong();
+			i++;
+			
+			
+		}
+		
+		long tasty[]=new long[n];
+		i=0;
+		while(i<n)
+		{
+			
+			tasty[i]=scn.nextLong();
+			i++;
+		}
+		// for(int ee=0;ee<n;ee++)
+		// {
+		// 	System.out.print(tasty[ee]+" ");
+		// }
+		
+		int e=0;
+		while(e<q)
+		{
+			int option=scn.nextInt();
+			if(option==1)
+			{
+				int b=scn.nextInt();
+				
+				long k=scn.nextLong();
+				
+				b=b-1;
+				
+				tasty[b]=k;
+				
+			}
+			else
+			{
+				int b=scn.nextInt();
+				
+				b=b-1;
+				
+				int c=scn.nextInt();
+				
+				c=c-1;
+				
+				long vs,ve;
+				
+				vs=height[b];
+				
+				ve=height[c];
+				
+				//System.out.println(vs+" "+ve);
+				Stack<Integer>sta=new Stack<>();
+				long mini=0;
+				boolean check=true;
+				if(b==c)
+				{
+					sb.append(tasty[c]+"\n");
+				}
+				else if(vs==ve)
+				{
+					if(b==c)
+					{
+						sb.append(tasty[b]+"\n");
+					}
+					else
+					{
+						sb.append("-1\n");
+					}
+				}
+				else if(ve>vs)
+				{
+					sb.append("-1\n");
+				}
+				else if(vs>ve&&c>b)
+				{
+					sta.push(b);
+					
+					for(int ele=b+1;ele<=c;ele++)
+					{
+						//System.out.println("hello"+ele);
+						
+						while(!sta.isEmpty()&&height[sta.peek()]<=height[ele])
+						{
+							sta.pop();
+						}
+						if(height[ele]>=vs)
+						{
+							check=false;
+							break;
+						}
+						sta.push(ele);
+					}
+					if(!check)
+					{
+						sb.append("-1\n");
+					}
+					else
+					{
+						while(!sta.isEmpty())
+						{
+						//	System.out.print(sta.peek()+"tasty"+tasty[sta.peek()]);
+							mini+=tasty[sta.peek()];
+							
+							sta.pop();
+						}
+						sb.append(mini+"\n");
+					}
+				}
+				else if(vs>ve&&b>c)
+				{
+					sta.push(b);
+					for(int ele=b-1;ele>=c;ele--)
+					
+					{
+					//	System.out.println(ele+"bye"+"  "+c);
+					
+						while(!sta.isEmpty()&&height[sta.peek()]<=height[ele])
+						{
+							sta.pop();
+						}
+						if(height[ele]>=vs)
+						{
+							check=false;
+							break;
+						}
+						
+						sta.push(ele);
+					}
+					if(!check)
+					{
+						sb.append("-1\n");
+					}
+					else
+					{
+						while(!sta.isEmpty())
+						{
+							mini+=tasty[sta.peek()];
+							sta.pop();
+						}
+						sb.append(mini+"\n");
+					}
+				}
+				else
+				{
+					sb.append("-1\n");
+				}
+			}
+			
+			
+			e++;
+		}
+		System.out.print(sb);
+	}
+}
